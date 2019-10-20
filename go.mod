@@ -3,6 +3,7 @@ module foo
 go 1.12
 
 require (
+	github.com/docker/docker v1.13.1
 	github.com/gin-gonic/gin v1.4.0
 	github.com/golang/protobuf v1.3.2
 	github.com/julienschmidt/httprouter v1.2.0
