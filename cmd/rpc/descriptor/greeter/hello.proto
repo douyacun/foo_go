@@ -1,0 +1,34 @@
+// 这里声明协议版本，默认是proto2, 3和2并不向下兼容
+syntax = "proto3";
+
+import "google/protobuf/descriptor.proto";
+import "google/api/annotations.proto";
+
+// 这里指定 go 包名
+package greeter;
+
+// 定义默认类型
+extend google.protobuf.FieldOptions {
+    string default_name = 5000;
+}
+
+// 定义要序列化的信息的结构
+message HelloRequest {
+    // string 字段类型， 也可以自定义字段类型
+    string name = 1 [(default_name) = "world"]; // 注意这里1是唯一的， 1-15 占用1个字节， 16 - 2047 占用2个字节
+}
+
+// 同一个proto文件中可以定义多个message type
+message HelloReply {
+    string message = 1;
+}
+
+// 定义接口
+service Greeter {
+    //    rpc SayHello (HelloRequest) returns (HelloReply);
+    rpc Echo (HelloRequest) returns (HelloReply) {
+        option (google.api.http) = {
+            get : "/echo/{name}"
+        };
+    }
+}
