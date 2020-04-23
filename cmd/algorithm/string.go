@@ -6,11 +6,7 @@ import (
 )
 
 func main() {
-	str := "abcabecdd"
-	fmt.Println(lengthOfLongestSubstring(str))
-
-	s := "abbac"
-	fmt.Println(longestPalindrome(s))
+	fmt.Printf("%d", myAtoi("2147483648"))
 }
 
 // 最长子串
@@ -58,7 +54,7 @@ func longestPalindrome(s string) string {
 			end = i + max/2
 		}
 	}
-	return s[start:end+1]
+	return s[start : end+1]
 }
 
 // 输入: "cbabcd"
@@ -76,4 +72,42 @@ func expandAroundCenter(s string, left, right int) int {
 		r++
 	}
 	return r - l - 1
+}
+
+// "   -42" -42
+func myAtoi(s string) int {
+	var (
+		n int8 = 0
+		c = 0
+	)
+	for i := 0; i < len(s); i++ {
+		if n == 0 {
+			if s[i] == '-' {
+				n = -1
+			} else if s[i] == '+' {
+				n = 1
+			} else if s[i] >= '0' && s[i] <= '9' {
+				n = 1
+				c = c*10 + int(s[i]-'0')
+			} else if s[i] == ' ' {
+				continue
+			} else {
+				return 0
+			}
+		} else {
+			if s[i] >= '0' && s[i] <= '9' {
+				c = c*10 + int(s[i]-'0')
+				if c >= 2<<30 {
+					if n > 0 {
+						return 2<<30 - 1
+					} else {
+						return 0 - 2<<30
+					}
+				}
+			} else {
+				break
+			}
+		}
+	}
+	return c * int(n)
 }
