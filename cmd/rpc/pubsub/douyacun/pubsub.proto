@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package douyacun;
+
+message Topic {
+    string name = 1;
+}
+message PubsubMessage {
+    bytes data = 1;
+}
+message PublishRequest {
+    Topic topic = 1;
+    PubsubMessage messages = 2;
+}
+message PublishResponse {
+    uint64 message_id = 1;
+}
+service Publisher {
+    rpc Publish (PublishRequest) returns (PublishResponse);
+    rpc Subscribe (Topic) returns (stream PubsubMessage);
+}
