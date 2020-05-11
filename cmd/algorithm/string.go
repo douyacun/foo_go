@@ -1,12 +1,14 @@
 package main
 
 import (
-	"fmt"
 	"math"
+	"os"
 )
 
 func main() {
-	fmt.Printf("%d", myAtoi("2147483648"))
+	res := CommonPrefix("c", "c")
+	println(res)
+	os.Exit(1)
 }
 
 // 最长子串
@@ -78,7 +80,7 @@ func expandAroundCenter(s string, left, right int) int {
 func myAtoi(s string) int {
 	var (
 		n int8 = 0
-		c = 0
+		c      = 0
 	)
 	for i := 0; i < len(s); i++ {
 		if n == 0 {
@@ -113,6 +115,17 @@ func myAtoi(s string) int {
 }
 
 
+/**
+# 14. 编写一个函数来查找字符串数组中的最长公共前缀。
+# 如果不存在公共前缀，返回空字符串 ""。
+# 示例 1:
+# 输入: ["flower","flow","flight"]
+# 输出: "fl"
+# 示例 2:
+# 输入: ["dog","racecar","car"]
+# 输出: ""
+# 解释: 输入不存在公共前缀。
+ */
 func longestCommonPrefix(strs []string) string {
 	if len(strs) == 0 {
 		return ""
@@ -120,33 +133,32 @@ func longestCommonPrefix(strs []string) string {
 	if len(strs) == 1 {
 		return strs[0]
 	}
-
-
-	return ""
+	return RecursiveCommonPrefix(strs, 0, len(strs))
 }
 
-func Recursive(strs []string, start, end int) string {
+func RecursiveCommonPrefix(strs []string, start, end int) string {
 	if start > end {
 		return ""
 	}
 	if start == end {
 		return strs[start]
 	}
-	mid
+	mid := start + (end-start)/2
+	left := RecursiveCommonPrefix(strs, start, mid)
+	right := RecursiveCommonPrefix(strs, mid+1, end)
+	return CommonPrefix(left, right)
 }
 
-
 func CommonPrefix(first, second string) string {
-	for i:=0; i < len(first) && i < len(second); i++ {
+	for i := 0; i < len(first) && i < len(second); i++ {
+		if i >= len(second) {
+			return second
+		}
 		if first[i] == second[i] {
 			continue
 		} else {
 			return first[:i]
 		}
 	}
-	if len(first) >= len(second) {
-		return first
-	} else {
-		return second
-	}
+	return ""
 }

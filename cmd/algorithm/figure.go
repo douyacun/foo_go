@@ -8,16 +8,9 @@ func main() {
 // 计算2数之和，返回2个数字的下标
 // [2, 7, 11, 8] 9 [0, 1]
 func twoSum(nums []int, target int) []int {
-	h := make(map[int]int)
-	for k, v := range nums {
-		h[v] = k
-	}
-	for k, v := range nums {
-		expect := target - v
-		if ek, ok := h[expect]; ok && ek != k {
-			return []int{k, ek}
-		}
-	}
+	// 快排:
+	QSort(nums, 0, len(nums)-1)
+
 	return []int{}
 }
 

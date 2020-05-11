@@ -4,22 +4,24 @@ import "fmt"
 
 func QSort(arr []int, start, end int) {
 	if start < end {
-		m, l, r := start, start+1, end
-		for l < r {
-			for arr[l] <= arr[m] && l < r {
-				l++
+		mid := arr[start]
+		var (
+			i = start + 1
+			j = end
+		)
+		for i <= j {
+			for arr[i] <= mid && i < j {
+				i++
 			}
-			for arr[r] > arr[m] && l < r {
-				r--
-			}
-			arr[l], arr[r] = arr[r], arr[l]
+			arr[i], arr[j] = arr[j], arr[i]
+			j--
 		}
-		if arr[l] > arr[m] {
-			l--
+		if arr[i] > mid {
+			i--
 		}
-		arr[m], arr[l] = arr[l], arr[m]
-		QSort(arr, start, l-1)
-		QSort(arr, l+1, end)
+		arr[start], arr[i] = arr[i], arr[start]
+		QSort(arr, start, i-1)
+		QSort(arr, i+1, end)
 	}
 }
 
