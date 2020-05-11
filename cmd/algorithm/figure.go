@@ -1,12 +1,8 @@
 package main
 
-import "fmt"
-
 func main() {
 	//nums := []int{3, 2, 4}
 	//fmt.Println(twoSum(nums, 6))
-	var n uint32 = 9
-	fmt.Println(intToBin(n))
 }
 
 // 计算2数之和，返回2个数字的下标
@@ -44,11 +40,11 @@ func intToBin(num uint32) uint64 {
 		return uint64(num)
 	}
 	var (
-		res uint64
+		res   uint64
 		times uint64 = 1
 	)
 	for num > 0 {
-		res += uint64(num % 2) * times
+		res += uint64(num%2) * times
 		num /= 2
 		times *= 10
 	}
