@@ -111,3 +111,42 @@ func myAtoi(s string) int {
 	}
 	return c * int(n)
 }
+
+
+func longestCommonPrefix(strs []string) string {
+	if len(strs) == 0 {
+		return ""
+	}
+	if len(strs) == 1 {
+		return strs[0]
+	}
+
+
+	return ""
+}
+
+func Recursive(strs []string, start, end int) string {
+	if start > end {
+		return ""
+	}
+	if start == end {
+		return strs[start]
+	}
+	mid
+}
+
+
+func CommonPrefix(first, second string) string {
+	for i:=0; i < len(first) && i < len(second); i++ {
+		if first[i] == second[i] {
+			continue
+		} else {
+			return first[:i]
+		}
+	}
+	if len(first) >= len(second) {
+		return first
+	} else {
+		return second
+	}
+}

@@ -197,3 +197,25 @@ func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 	return head.Next
 }
+
+/**
+ * 二进制链表转整数
+ */
+func getDecimalValue(head *ListNode) int {
+	var (
+		pos int
+		res int
+	)
+	var node = head
+	for node.Next != nil {
+		pos++
+		node = node.Next
+	}
+	node = head
+	for node != nil {
+		res = res + node.Val*(1<<pos)
+		pos--
+		node = node.Next
+	}
+	return res
+}
