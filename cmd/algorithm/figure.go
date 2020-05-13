@@ -1,17 +1,14 @@
 package main
 
+import "fmt"
+
 func main() {
 	//nums := []int{3, 2, 4}
 	//fmt.Println(twoSum(nums, 6))
-}
+	arr1 := []int{0, 1, 2, 4}
+	arr2 := []int{3, 5, 7}
 
-// 计算2数之和，返回2个数字的下标
-// [2, 7, 11, 8] 9 [0, 1]
-func twoSum(nums []int, target int) []int {
-	// 快排:
-	QSort(nums, 0, len(nums)-1)
-
-	return []int{}
+	fmt.Println(arrayCombine(arr1, arr2, 2))
 }
 
 /**
@@ -42,4 +39,42 @@ func intToBin(num uint32) uint64 {
 		times *= 10
 	}
 	return res
+}
+
+/**
+ * 两个有序数组从小到大排列，取两个数组合并后第K大的元素，要求O(1)空间复杂度
+ * 如 a = {0, 1, 2, 4} b = {3, 5, 7} 第4大元素，返回3
+ */
+func arrayCombine(a, b []int, k int) int {
+	if len(a) > len(b) {
+		return arrayCombine(b, a, k)
+	}
+
+	if len(a) == 0 {
+		return b[k-1]
+	}
+
+	if k == 1 {
+		if a[0] < b[0] {
+			return a[0]
+		} else {
+			return b[0]
+		}
+	}
+
+	x, y := len(a), len(b)
+	if len(a) > k/2 {
+		x = k / 2
+	}
+	if len(b) > k/2 {
+		y = k / 2
+	}
+
+	if a[x-1] < b[y-1] {
+		return arrayCombine(a[x:], b, k-x)
+	} else if a[x-1] > b[y-1] {
+		return arrayCombine(a, b[y:], k-y)
+	} else {
+		return a[x-1]
+	}
 }
