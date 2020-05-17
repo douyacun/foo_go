@@ -5,10 +5,11 @@ import "fmt"
 func main() {
 	//nums := []int{3, 2, 4}
 	//fmt.Println(twoSum(nums, 6))
-	arr1 := []int{0, 1, 2, 4}
-	arr2 := []int{3, 5, 7}
+	//arr1 := []int{0, 1, 2, 4}
+	//arr2 := []int{3, 5, 7}
 
-	fmt.Println(arrayCombine(arr1, arr2, 2))
+	//fmt.Println(arrayCombine(arr1, arr2, 2))
+	fmt.Println(findSubstring("barfoothefoobarman", []string{"bar", "foo"}))
 }
 
 /**
@@ -77,4 +78,55 @@ func arrayCombine(a, b []int, k int) int {
 	} else {
 		return a[x-1]
 	}
+}
+
+func findSubstring(s string, words []string) []int {
+	res := make([]int, 0)
+	if len(words) == 0 {
+		return res
+	}
+	windowLength := len(words[0]) * len(words)
+	for j := 0; j < len(s) && (len(s)-j) >= windowLength; {
+		if includeSubStr(s[j:j+windowLength], words) {
+			res = append(res, j)
+		}
+		j++
+	}
+	return res
+}
+
+func delSlice(t []string, i int) []string {
+	if i == len(t) {
+		return t[:i]
+	} else {
+		return append(t[:i], t[i+1:]...)
+	}
+}
+
+func copySlice(src []string) []string {
+	dst := make([]string, len(src))
+	copy(dst, src)
+	return dst
+}
+
+func includeSubStr(s string, words []string) bool {
+	t := copySlice(words)
+	i := 0
+	for len(t) > 0 && i < len(s) {
+		prev := len(t)
+		for k, word := range t {
+			if s[i:i+len(word)] == word {
+				i += len(word)
+				t = delSlice(t, k)
+				break
+			}
+		}
+		if len(t) == prev {
+			return false
+		}
+	}
+	if len(t) == 0 {
+		return true
+	}
+	return false
 }
