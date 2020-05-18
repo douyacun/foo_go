@@ -2,26 +2,27 @@ package main
 
 import "fmt"
 
-func QSort(arr []int, start, end int) {
+func QSort(nums []int, start, end int) {
 	if start < end {
-		mid := arr[start]
-		var (
-			i = start + 1
-			j = end
-		)
-		for i <= j {
-			for arr[i] <= mid && i < j {
-				i++
+		mid := start
+		left := start + 1
+		right := end
+		for left < right {
+			for left < right && nums[left] <= nums[mid] {
+				left++
 			}
-			arr[i], arr[j] = arr[j], arr[i]
-			j--
+			for left < right && nums[right] > nums[mid] {
+				right--
+			}
+			nums[left], nums[right] = nums[right], nums[left]
+			right--
 		}
-		if arr[i] > mid {
-			i--
+		if nums[left] > nums[mid] {
+			left--
 		}
-		arr[start], arr[i] = arr[i], arr[start]
-		QSort(arr, start, i-1)
-		QSort(arr, i+1, end)
+		nums[left], nums[mid] = nums[mid], nums[left]
+		QSort(nums, start, left - 1)
+		QSort(nums, left + 1, end)
 	}
 }
 
