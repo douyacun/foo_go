@@ -1,12 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"log"
+	"net/http"
+)
 
 func main() {
-	a := []int{1, 2, 3, 4}
-	b := make([]int, len(a))
-	copy(b, a)
-
-	b = append(b[:0], b[1:]...)
-	fmt.Println(a, b)
+	http.Handle("/metrics", promhttp.Handler())
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
