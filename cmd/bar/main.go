@@ -1,12 +1,39 @@
 package main
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type person struct {
+	Weight json.Number     `json:"weight"`
+	Skill  json.RawMessage `json:"skill"`
+}
 
 func main() {
-	a := []int{1, 2, 3, 4}
-	b := make([]int, len(a))
-	copy(b, a)
+	str := `{
+	"weight": 180,
+	"skill": {
+		"language": ["php", "golang", "c", "python"],
+		"database": ["elasticsearch", "mysql", "redis"]
+	}
+}`
+	var p person
+	if err := json.Unmarshal([]byte(str), &p); err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("weight: %s\nskill: %s\n", p.Weight, p.Skill)
 
-	b = append(b[:0], b[1:]...)
-	fmt.Println(a, b)
+	type _skill struct {
+		Language []string `json:"language"`
+		Database []string `json:"database"`
+	}
+
+	var skill _skill
+	if err := json.Unmarshal(p.Skill, &skill); err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("%+v\n", skill)
 }
