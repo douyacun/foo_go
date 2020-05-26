@@ -9,7 +9,9 @@ func main() {
 	//arr2 := []int{3, 5, 7}
 
 	//fmt.Println(arrayCombine(arr1, arr2, 2))
-	fmt.Println(findSubstring("barfoothefoobarman", []string{"bar", "foo"}))
+	//fmt.Println(findSubstring("barfoothefoobarman", []string{"bar", "foo"}))
+	//fmt.Println(validParentheses("()"))
+	fmt.Println(longestValidParentheses("()(()))"))
 }
 
 /**
@@ -129,4 +131,50 @@ func includeSubStr(s string, words []string) bool {
 		return true
 	}
 	return false
+}
+
+func longestValidParentheses(s string) int {
+	max := 0
+	for i := 0; i < len(s)-1; {
+		for j := i; j < len(s)-1; {
+			c := j
+			for c < len(s) - 1 && s[c+1] == s[j] {
+				c++
+			}
+			end := 2*(c-j) + j + 1
+			if end < len(s) && validParentheses(s[j:end+1]) {
+				j = end + 1
+				if j - i > max {
+					max = j - i
+				}
+				if j >= len(s)-1 {
+					i = j
+				}
+			} else {
+				if i == j {
+					i++
+				} else {
+					i = j
+				}
+				break
+			}
+		}
+	}
+	return max
+}
+
+func validParentheses(s string) bool {
+	if len(s)%2 != 0 {
+		return false
+	}
+	left, right := 0, len(s)-1
+	for left < right {
+		if s[left] != s[right] {
+			left++
+			right--
+		} else {
+			return false
+		}
+	}
+	return true
 }
