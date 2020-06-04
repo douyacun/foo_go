@@ -132,3 +132,31 @@ func includeSubStr(s string, words []string) bool {
 	}
 	return false
 }
+
+func isValidSudoku(board [][]byte) bool {
+	var (
+		rows    = make([]map[byte]int, 9)
+		columns = make([]map[byte]int, 9)
+		box     = make([]map[byte]int, 9)
+	)
+	for i := 0; i < 9; i++ {
+		rows[i] = make(map[byte]int)
+		columns[i] = make(map[byte]int)
+		box[i] = make(map[byte]int)
+	}
+	for i := 0; i < 9; i++ {
+		for j := 0; j < 9; j++ {
+			n := board[i][j]
+			if n != '.' {
+				rows[i][n] += 1
+				columns[j][n] += 1
+				boxIndex := (i/3)*3 + j/3
+				box[boxIndex][n] += 1
+				if rows[i][n] > 1 || columns[j][n] > 1 || box[boxIndex][n] > 1 {
+					return false
+				}
+			}
+		}
+	}
+	return true
+}
