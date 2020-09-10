@@ -1,16 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
+	"time"
 )
 
-type person struct {
-	Weight int
-}
-
 func main() {
-	bar := person{Weight: 80}
-	data, _ := json.Marshal(bar)
-	fmt.Println(string(data))
+	fmt.Println(time.Now().AddDate(0, -1, 0).Format("2006-01"))
 }

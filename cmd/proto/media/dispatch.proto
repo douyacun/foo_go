@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package media;
+option go_package = "foo/proto/media";
+
+import "foo/proto/user/user.proto";
+
+message Foo {
+  UserInfo account = 1;
+}
+
