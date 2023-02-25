@@ -19,7 +19,7 @@ require (
 	github.com/urfave/cli v1.20.0
 	gocv.io/x/gocv v0.26.0
 	golang.org/x/net v0.0.0-20191021144547-ec77196f6094 // indirect
-	golang.org/x/sys v0.0.0-20200420163511-1957bb5e6d1f // indirect
+	golang.org/x/sys v0.1.0 // indirect
 	google.golang.org/appengine v1.6.5 // indirect
 	google.golang.org/genproto v0.0.0-20191009194640-548a555dbc03
 	google.golang.org/grpc v1.27.0
